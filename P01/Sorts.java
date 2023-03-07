@@ -47,22 +47,22 @@ class Sorts
     }// selectionSort()
 
     // insertion sort
-    public static void insertionSort(int[] A)
+    public static void insertionSort(int[] A) 
     {
-      int nn, ii, temp;
-      for (nn = 1; nn < (A.length); nn++)
-      {
-        ii = nn;
-        temp = A[ii];
-
-        while ((ii > 0) && (A[ii-1] > temp));
+        int nn, ii, temp;
+        for (nn = 1; nn < A.length; nn++) 
         {
-          A[ii] = A[ii-1];
-          ii--;
+          ii = nn;
+          temp = A[ii];
+          while (ii > 0 && A[ii-1] > temp) 
+          {
+            A[ii] = A[ii-1];
+            ii--;
+          }
+          A[ii] = temp;
         }
-        A[ii] = temp;
-      }
-    }// insertionSort()
+    }
+    // insertionSort()
 
     // mergeSort - front-end for kick-starting the recursive algorithm
     public static void mergeSort(int[] A)
