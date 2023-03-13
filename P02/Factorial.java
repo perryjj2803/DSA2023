@@ -1,23 +1,69 @@
 import java.util.*;
-class Factorial
+
+class Factorial 
 {
-    public static void main(String[] args)
+    public static void main(String[] args) 
     {
-        int min = 1;
-        int max = 2;
-        long facNumber = 0;
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        int userInput;
+        int n;
+        boolean exitProgram = false;
 
-        System.out.println("Please select which formula to use");
-        System.out.println("1 - Iterative formula");
-        System.out.println("2 - Recursive formula");
-        int formulaToUse = input.nextInt();
-        if (formulaToUse > max || formulaToUse < min)
+        while (!exitProgram) 
         {
-            throw new IllegalArgumentException("Invalid input: Must select either 1 or 2");
-        }
+            System.out.println("Menu:");
+            System.out.println("1. Iterative Factorial");
+            System.out.println("2. Recursive Factorial");
+            System.out.println("0. Exit");
 
-        System.out.println("Please enter Factorial number to begin with");
-        int userInt = input.nextInt();
+            System.out.print("Enter your choice: ");
+            userInput = scanner.nextInt();
+
+            if (userInput == 1) 
+            {
+                System.out.print("Enter a number to calculate the factorial of: ");
+                n = scanner.nextInt();
+                long factorial = iterativeCalcNFactorial(n);
+                System.out.println("The factorial of " + n + " is " + factorial);
+            } 
+            else if (userInput == 2) 
+            {
+                System.out.print("Enter a number to calculate the factorial of: ");
+                n = scanner.nextInt();
+                long factorial = recursiveCalcNFactorial(n);
+                System.out.println("The factorial of " + n + " is " + factorial);
+            } 
+            else if (userInput == 0) 
+            {
+                System.out.println("Exiting program...");
+                exitProgram = true;
+            } 
+            else 
+            {
+                System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+
+    public static long iterativeCalcNFactorial(int n) 
+    {
+        long nFactorial = 1;
+        for (int ii = n; ii >= 2; ii--) 
+        {
+            nFactorial *= ii;
+        }
+        return nFactorial;
+    }
+
+    public static long recursiveCalcNFactorial(int n) 
+    {
+        if (n == 0) 
+        {
+            return 1;
+        } 
+        else 
+        {
+            return n * recursiveCalcNFactorial(n - 1);
+        }
     }
 }
