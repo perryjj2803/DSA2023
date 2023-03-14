@@ -1,5 +1,5 @@
-The bubble sort has the quickest time to complete in ascending order with each pass doing (N-P) comparisons with a worst case and average complexity of O(N2) and best case of O(N).
+The bubble sort has the quickest time to complete in ascending order with each pass doing (N-P) comparisons with a worst case and average complexity of O(N^2) and best case of O(N).
 Some optimisations of the bubble sort include stop sorting when no swaps are needed within a pass as well as not needing to check the last P values within the array. 
-The insertion sort also has a worst and average complexity of O(N2) and best case of O(N). The insertion sort can be used when adding items to an array in sorted order as well as being applied to an existing array to sort. 
-The selection sort selects the smallest item and swaps it with the first requiring N-1 passes in total with only one swap per pass. 
-Because of this the best case, worst case and average all have the same complexity of O(N2) making it the only one of the 3 sorts with a best case complexity equivalent to its worst/average case complexity.
+The insertion sort also has a worst and average complexity of O(N^2) and best case of O(N). The insertion sort can be used when adding items to an array in sorted order as well as being 
+applied to an existing array to sort. The selection sort selects the smallest item and swaps it with the first requiring N-1 passes in total with only one swap per pass. 
+Because of this the best case, worst case and average all have the same complexity of O(N^2) making it the only one of the 3 sorts with a best case complexity equivalent to its worst/average case complexity.
