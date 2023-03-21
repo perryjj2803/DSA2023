@@ -35,7 +35,7 @@ class Factorial
             } 
             else if (userInput == 0) 
             {
-                System.out.println("Exiting program...");
+                System.out.println("bye bye...");
                 exitProgram = true;
             } 
             else 
