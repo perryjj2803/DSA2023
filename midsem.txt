@@ -1,0 +1,6 @@
+private public static classes
+serialization
+iterators
+inheritance terms + diamonds
+UML diagram (dotted lines coloured in arrows etc)
+time complexity (sorting and linkedlist)
