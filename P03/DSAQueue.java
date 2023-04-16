@@ -77,8 +77,8 @@ public class DSAQueue
         }
         else
         {
-            queue[front] = 0;
             Object value = queue[front];
+            queue[front] = 0;
             front = front+1;
             count = count-1;
     
