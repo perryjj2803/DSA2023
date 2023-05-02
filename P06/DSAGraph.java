@@ -1,14 +1,15 @@
 import java.util.*;
+
 class DSAGraph
 {
-    class DSAGraphVertex
+    class DSAGraphNode
     {
         private String label;
         private Object value;
-        private LinkedList<DSAGraphVertex> links;
+        private LinkedList<DSAGraphNode> links;
         private boolean visited;
 
-        public DSAGraphVertex(String inLabel, Object inValue)
+        public DSAGraphNode(String inLabel, Object inValue)
         {
             label = inLabel;
             value = inValue;
@@ -26,14 +27,14 @@ class DSAGraph
             return value;
         }
 
-        public List<DSAGraphVertex> getAdjacent()
+        public List<DSAGraphNode> getAdjacent()
         {
             return links;
         }
 
-        public void addEdge(DSAGraphVertex vertex)
+        public void addEdge(DSAGraphNode node)
         {
-            links.add(vertex);
+            links.add(node);
         }
 
         public void setVisited()
@@ -55,90 +56,91 @@ class DSAGraph
         {
             StringBuilder sb = new StringBuilder();
             sb.append(label).append(" -> ");
-            for (DSAGraphVertex vertex : links)
+            for (DSAGraphNode node : links)
             {
-                sb.append(vertex.getLabel()).append(", ");
+                sb.append(node.getLabel()).append(", ");
             }
             return sb.toString();
         }
     }
 
-    private LinkedList<DSAGraphVertex> vertices;
+    private LinkedList<DSAGraphNode> nodes;
+
     public DSAGraph()
     {
-        vertices = new LinkedList<>();
+        nodes = new LinkedList<>();
     }
 
-    public void addVertex(String label, Object value)
+    public void addNode(String label, Object value)
     {
-        vertices.add(new DSAGraphVertex(label, value));
+        nodes.add(new DSAGraphNode(label, value));
     }
 
     public void addEdge(String label1, String label2)
     {
-        DSAGraphVertex vertex1 = getVertex(label1);
-        DSAGraphVertex vertex2 = getVertex(label2);
-        vertex1.addEdge(vertex2);
-        vertex2.addEdge(vertex1);
+        DSAGraphNode node1 = getNode(label1);
+        DSAGraphNode node2 = getNode(label2);
+        node1.addEdge(node2);
+        node2.addEdge(node1);
     }
 
-    public boolean hasVertex(String label)
+    public boolean hasNode(String label)
     {
-        return getVertex(label) != null;
+        return getNode(label) != null;
     }
 
-    public int getVertexCount()
+    public int getNodeCount()
     {
-        return vertices.size();
+        return nodes.size();
     }
 
     public int getEdgeCount()
     {
         int count = 0;
-        for (DSAGraphVertex vertex : vertices)
+        for (DSAGraphNode node : nodes)
         {
-            count += vertex.getAdjacent().size();
+            count += node.getAdjacent().size();
         }
         return count / 2;
     }
 
-    public DSAGraphVertex getVertex(String label)
+    public DSAGraphNode getNode(String label)
     {
-        DSAGraphVertex result = null;
-        for (DSAGraphVertex vertex : vertices)
+        DSAGraphNode result = null;
+        for (DSAGraphNode node : nodes)
         {
-            if (vertex.getLabel().equals(label))
+            if (node.getLabel().equals(label))
             {
-                result = vertex;
+                result = node;
                 break;
             }
         }
         return result;
     }
 
-    public List<DSAGraphVertex> getAdjacent(String label)
+    public List<DSAGraphNode> getAdjacent(String label)
     {
-        return getVertex(label).getAdjacent();
+        return getNode(label).getAdjacent();
     }
 
     public boolean isAdjacent(String label1, String label2)
     {
-        return getVertex(label1).getAdjacent().contains(getVertex(label2));
+        return getNode(label1).getAdjacent().contains(getNode(label2));
     }
 
     public void displayAsList()
     {
-        for (DSAGraphVertex vertex : vertices)
+        for (DSAGraphNode node : nodes)
         {
-            System.out.println(vertex);
+            System.out.println(node);
         }
     }
 
     public void displayAsMatrix()
     {
-        for (DSAGraphVertex row : vertices)
+        for (DSAGraphNode row : nodes)
         {
-            for (DSAGraphVertex col : vertices)
+            for (DSAGraphNode col : nodes)
             {
                 System.out.print(isAdjacent(row.getLabel(), col.getLabel()) ? "1 " : "0 ");
             }
@@ -146,4 +148,3 @@ class DSAGraph
         }
     }
 }
-

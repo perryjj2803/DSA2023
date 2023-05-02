@@ -5,14 +5,14 @@ public class DSAGraphTestHarness
         // Create an empty graph
         DSAGraph graph = new DSAGraph();
 
-        // Test addVertex and getVertexCount
-        graph.addVertex("A", 1);
-        graph.addVertex("B", 2);
-        graph.addVertex("C", 3);
-        graph.addVertex("D", 4);
-        graph.addVertex("E", 5);
+        // Test addNode and getnodeCount
+        graph.addNode("A", 1);
+        graph.addNode("B", 2);
+        graph.addNode("C", 3);
+        graph.addNode("D", 4);
+        graph.addNode("E", 5);
 
-        System.out.println("Vertex count: " + graph.getVertexCount()); // Should be 5
+        System.out.println("node count: " + graph.getNodeCount()); // Should be 5
 
         // Test addEdge and getEdgeCount
         graph.addEdge("A", "B");
@@ -24,9 +24,9 @@ public class DSAGraphTestHarness
 
         System.out.println("Edge count: " + graph.getEdgeCount()); // Should be 6
 
-        // Test hasVertex
-        System.out.println("Has vertex A? " + graph.hasVertex("A")); // Should be true
-        System.out.println("Has vertex F? " + graph.hasVertex("F")); // Should be false
+        // Test hasNode
+        System.out.println("Has node A? " + graph.hasNode("A")); // Should be true
+        System.out.println("Has node F? " + graph.hasNode("F")); // Should be false
 
         // Test getAdjacent
         System.out.println("Adjacent to A: " + graph.getAdjacent("A")); // Should be B, C, D
@@ -44,11 +44,11 @@ public class DSAGraphTestHarness
         graph.displayAsMatrix();
 
         // Test visited methods
-        DSAGraph.DSAGraphVertex vertex = graph.getVertex("A");
-        System.out.println("A visited? " + vertex.getVisited()); // Should be false
-        vertex.setVisited();
-        System.out.println("A visited? " + vertex.getVisited()); // Should be true
-        vertex.clearVisited();
-        System.out.println("A visited? " + vertex.getVisited()); // Should be false
+        DSAGraph.DSAGraphNode node = graph.getNode("A");
+        System.out.println("A visited? " + node.getVisited()); // Should be false
+        node.setVisited();
+        System.out.println("A visited? " + node.getVisited()); // Should be true
+        node.clearVisited();
+        System.out.println("A visited? " + node.getVisited()); // Should be false
     }
 }
