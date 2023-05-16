@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Assignment {
     public static void main(String[] args) throws IOException {
@@ -11,48 +14,40 @@ public class Assignment {
         int numVertices = Integer.parseInt(line1[0]);
         int numEdges = Integer.parseInt(line1[1]);
 
-        Graph graph = new Graph(numVertices, numEdges);
+        Map<String, Graph.Vertex> vertices = new HashMap<>();
 
         // Create vertices
-        Graph.Vertex[] vertices = new Graph.Vertex[numVertices];
         for (int i = 0; i < numVertices; i++) {
             String label = Character.toString((char) ('A' + i));
             Graph.Vertex vertex = new Graph.Vertex(label);
-            vertices[i] = vertex;
+            vertices.put(label, vertex);
         }
 
+        // Create graph
+        Graph graph = new Graph();
+
         // Add vertices to the graph
-        for (Graph.Vertex vertex : vertices) {
+        for (Graph.Vertex vertex : vertices.values()) {
             graph.addVertex(vertex);
         }
 
-        // Create edges
+        // Add edges to the graph
         for (int i = 0; i < numEdges; i++) {
             String[] line = reader.readLine().split(" ");
             String startLabel = line[0];
             String endLabel = line[1];
             double weight = Double.parseDouble(line[2]);
 
-            Graph.Vertex start = null;
-            Graph.Vertex end = null;
+            Graph.Vertex start = vertices.get(startLabel);
+            Graph.Vertex end = vertices.get(endLabel);
 
-            // Find the corresponding vertices from the created vertices array
-            for (Graph.Vertex vertex : vertices) {
-                if (vertex.getLabel().equals(startLabel)) {
-                    start = vertex;
-                } else if (vertex.getLabel().equals(endLabel)) {
-                    end = vertex;
-                }
-            }
-
-            // Add the edges to the graph
             graph.addEdge(start, end, weight);
         }
 
         reader.close();
 
-        // Print the graph for task 1
-        for (Graph.Vertex vertex : graph.getVertices()) {
+        // Print the graph
+        for (Graph.Vertex vertex : vertices.values()) {
             List<Graph.Edge> edges = graph.getEdges(vertex);
 
             System.out.print(vertex + " -> ");
@@ -63,7 +58,5 @@ public class Assignment {
 
             System.out.println();
         }
-        // Print the graph for task 2
-        // REPORT: having an issue where the end vertex is equal to the start
     }
 }

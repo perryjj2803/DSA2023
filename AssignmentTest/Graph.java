@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Graph {
     private Vertex[] vertices;
@@ -26,82 +29,41 @@ public class Graph {
         }
     }
 
-    public int getIndex(Vertex vertex) {
-    for (int i = 0; i < vertexCount; i++) {
-        if (vertices[i].equals(vertex)) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-private Vertex getNeighbor(Edge edge, Vertex vertex) {
-    if (edge.getStart().equals(vertex)) {
-        return edge.getEnd();
-    } else {
-        return edge.getStart();
-    }
-}
-
-   public void BFS(Vertex start) {
-    boolean[] visited = new boolean[vertices.length];
-    DSAQueue queue = new DSAQueue();
-
-    visited[getIndex(start)] = true;
-    queue.enqueue(start);
-
-    while (!queue.isEmpty()) {
-        Vertex currentVertex = (Vertex) queue.dequeue();
-        System.out.print(currentVertex.getLabel() + " ");
-
-        List<Edge> edges = getEdges(currentVertex);
+    public boolean hasEdge(Vertex start, Vertex end) {
         for (Edge edge : edges) {
-            Vertex neighbor = getNeighbor(edge, currentVertex);
-            int neighborIndex = getIndex(neighbor);
-            if (!visited[neighborIndex]) {
-                visited[neighborIndex] = true;
-                queue.enqueue(neighbor);
+            if (edge != null && edge.getStart() != null && edge.getEnd() != null &&
+                    edge.getStart().equals(start) && edge.getEnd().equals(end)) {
+                return true;
             }
         }
+        return false;
     }
-}
-// REPORT: was throwing a nullpointerexception for ages, added null checks to ensure start or end is not null before invoking their methods//
-//(edge != null, edge.getStart() != null, and edge.getEnd() != null) to ensure that all necessary objects are non-null before accessing their methods.//
-   public boolean hasEdge(Vertex start, Vertex end) {
-    for (Edge edge : edges) {
-        if (edge != null && edge.getStart() != null && edge.getEnd() != null &&
-                edge.getStart().equals(start) && edge.getEnd().equals(end)) {
-            return true;
-        }
-    }
-    return false;
-}
 
     public boolean containsVertex(Vertex vertex) {
-    int i = 0;
-    boolean found = false;
-    while (i < vertexCount && !found) {
-        found = vertices[i].equals(vertex);
-        i++;
-    }
-    return found;
-}
-
-    public List<Edge> getEdges(Vertex vertex) {
-        List<Edge> vertexEdges = new ArrayList<>();
-        for (Edge edge : edges) {
-            if (edge.getStart().equals(vertex) || edge.getEnd().equals(vertex)) {
-                vertexEdges.add(edge);
+        for (int i = 0; i < vertexCount; i++) {
+            if (vertices[i].equals(vertex)) {
+                return true;
             }
         }
-        return vertexEdges;
+        return false;
+    }
+
+    public List<Edge> getEdges(Vertex vertex) {
+        Edge[] vertexEdges = new Edge[edgeCount];
+        int count = 0;
+        for (int i = 0; i < edgeCount; i++) {
+            Edge edge = edges[i];
+            if (edge.getStart().equals(vertex) || edge.getEnd().equals(vertex)) {
+                vertexEdges[count++] = edge;
+            }
+        }
+        return Arrays.asList(Arrays.copyOf(vertexEdges, count));
     }
 
     public List<Vertex> getVertices() {
         return Arrays.asList(Arrays.copyOf(vertices, vertexCount));
     }
 
-    // Class to initialize vertices and associated values
     public static class Vertex {
         private String label;
 
@@ -123,6 +85,10 @@ private Vertex getNeighbor(Edge edge, Vertex vertex) {
                 return label.equals(other.label);
             }
             return false;
+        }
+
+        public int hashCode() {
+            return label.hashCode();
         }
     }
 
