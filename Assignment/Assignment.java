@@ -69,17 +69,25 @@ uavReader.close();
 
 
         // Print the graph for task 1
-        for (Graph.Vertex vertex : graph.getVertices()) {
-            List<Graph.Edge> edges = graph.getEdges(vertex);
+for (Graph.Vertex vertex : graph.getVertices()) {
+    List<Graph.Edge> edges = graph.getEdges(vertex);
 
-            System.out.print(vertex + " -> ");
+    System.out.print(vertex + " -> ");
 
-            for (Graph.Edge edge : edges) {
-                System.out.print(edge.getEnd() + "(" + edge.getWeight() + ") ");
-            }
-
-            System.out.println();
+    for (Graph.Edge edge : edges) {
+        // If the current vertex is the start vertex, print the end vertex and weight
+        if (edge.getStart().equals(vertex)) {
+            System.out.print(edge.getEnd() + "(" + edge.getWeight() + ") ");
+        } 
+        // If the current vertex is the end vertex, print the start vertex and weight
+        else {
+            System.out.print(edge.getStart() + "(" + edge.getWeight() + ") ");
         }
+    }
+
+    System.out.println();
+}
+
         // Print the graph for task 2
         // REPORT: having an issue where the end vertex is equal to the start
 
