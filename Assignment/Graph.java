@@ -43,6 +43,7 @@ private Vertex getNeighbor(Edge edge, Vertex vertex) {
     }
 }
 
+//REPORT: Had to use exisitng queue class + add peek method 
    public void BFS(Vertex start) {
     boolean[] visited = new boolean[vertices.length];
     DSAQueue queue = new DSAQueue();
@@ -62,6 +63,24 @@ private Vertex getNeighbor(Edge edge, Vertex vertex) {
                 visited[neighborIndex] = true;
                 queue.enqueue(neighbor);
             }
+        }
+    }
+}
+
+public void DFS(Vertex start) {
+    boolean[] visited = new boolean[vertices.length];
+    DFSUtil(start, visited);
+}
+
+private void DFSUtil(Vertex vertex, boolean[] visited) {
+    visited[getIndex(vertex)] = true;
+    System.out.print(vertex.getLabel() + " ");
+
+    List<Edge> edges = getEdges(vertex);
+    for (Edge edge : edges) {
+        Vertex neighbor = getNeighbor(edge, vertex);
+        if (!visited[getIndex(neighbor)]) {
+            DFSUtil(neighbor, visited);
         }
     }
 }
@@ -104,13 +123,42 @@ private Vertex getNeighbor(Edge edge, Vertex vertex) {
     // Class to initialize vertices and associated values
     public static class Vertex {
         private String label;
+        private double temp;
+        private double humidity;
+        private double wind;
 
         public Vertex(String label) {
             this.label = label;
         }
 
+        //Setter nethods
+        public void setTemp(double temp) {
+            this.temp = temp;
+        }
+
+        public void setHumidity(double humidity) {
+            this.humidity = humidity;
+        }
+
+        public void setWind(double wind) {
+            this.wind = wind;
+        }
+
+        //Getter methods
         public String getLabel() {
             return label;
+        }
+
+        public double getTemp() {
+            return temp;
+        }
+
+        public double getHumidity() {
+            return humidity;
+        }
+
+        public double getWind() {
+            return wind;
         }
 
         public String toString() {

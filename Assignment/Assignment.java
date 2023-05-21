@@ -51,6 +51,23 @@ public class Assignment {
 
         reader.close();
 
+        // Read UAV data from UAVdata.txt
+BufferedReader uavReader = new BufferedReader(new FileReader("UAVdata.txt"));
+
+for (int i = 0; i < numVertices; i++) {
+    String[] line = uavReader.readLine().split(" ");
+    double temp = Double.parseDouble(line[1]);
+    double humidity = Double.parseDouble(line[2]);
+    double wind = Double.parseDouble(line[3]);
+
+    vertices[i].setTemp(temp);
+    vertices[i].setHumidity(humidity);
+    vertices[i].setWind(wind);
+}
+
+uavReader.close();
+
+
         // Print the graph for task 1
         for (Graph.Vertex vertex : graph.getVertices()) {
             List<Graph.Edge> edges = graph.getEdges(vertex);
@@ -65,5 +82,19 @@ public class Assignment {
         }
         // Print the graph for task 2
         // REPORT: having an issue where the end vertex is equal to the start
+
+            for (Graph.Vertex vertex : graph.getVertices()) {
+                List<Graph.Edge> edges = graph.getEdges(vertex);
+
+                System.out.print(vertex.getLabel() + " (Temp: " + vertex.getTemp() +
+                    ", Humidity: " + vertex.getHumidity() +
+                    ", Wind: " + vertex.getWind() + ") -> ");
+
+                for (Graph.Edge edge : edges) {
+                    System.out.print(edge.getEnd().getLabel() + "(" + edge.getWeight() + ") ");
+                }
+
+            System.out.println();
+        }     
     }
 }
