@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class Assignment {
     public static void main(String[] args) throws IOException {
@@ -14,17 +13,17 @@ public class Assignment {
         Graph graph = new Graph(numVertices, numEdges);
 
         // Create vertices
-        Graph.Vertex[] vertices = new Graph.Vertex[numVertices];
+        DSALinkedList vertices = new DSALinkedList();
         for (int i = 0; i < numVertices; i++) {
             String label = Character.toString((char) ('A' + i));
             Graph.Vertex vertex = new Graph.Vertex(label);
-            vertices[i] = vertex;
+            vertices.insertLast(vertex);
         }
 
         // Add vertices to the graph
-        for (Graph.Vertex vertex : vertices) {
+        for (Object obj : vertices) {
+            Graph.Vertex vertex = (Graph.Vertex)obj;
             graph.addVertex(vertex);
-            
         }
 
         // Create edges
@@ -38,7 +37,8 @@ public class Assignment {
             Graph.Vertex end = null;
 
             // Find the corresponding vertices from the created vertices array
-            for (Graph.Vertex vertex : vertices) {
+            for (Object obj : vertices) {
+                Graph.Vertex vertex = (Graph.Vertex)obj;
                 if (vertex.getLabel().equals(startLabel)) {
                     start = vertex;
                 } else if (vertex.getLabel().equals(endLabel)) {
@@ -53,57 +53,25 @@ public class Assignment {
         reader.close();
 
         // Read UAV data from UAVdata.txt
-BufferedReader uavReader = new BufferedReader(new FileReader("UAVdata.txt"));
+        BufferedReader uavReader = new BufferedReader(new FileReader("UAVdata.txt"));
 
-for (int i = 0; i < numVertices; i++) {
-    String[] line = uavReader.readLine().split(" ");
-    double temp = Double.parseDouble(line[1]);
-    double humidity = Double.parseDouble(line[2]);
-    double wind = Double.parseDouble(line[3]);
+        for (int i = 0; i < numVertices; i++) {
+            String[] line = uavReader.readLine().split(" ");
+            double temp = Double.parseDouble(line[1]);
+            double humidity = Double.parseDouble(line[2]);
+            double wind = Double.parseDouble(line[3]);
 
-    vertices[i].setTemp(temp);
-    vertices[i].setHumidity(humidity);
-    vertices[i].setWind(wind);
-}
-
-uavReader.close();
-
-
-        // Print the graph for task 1
-for (Graph.Vertex vertex : graph.getVertices()) {
-    List<Graph.Edge> edges = graph.getEdges(vertex);
-
-    System.out.print(vertex + " -> ");
-
-    for (Graph.Edge edge : edges) {
-        // If the current vertex is the start vertex, print the end vertex and weight
-        if (edge.getStart().equals(vertex)) {
-            System.out.print(edge.getEnd() + "(" + edge.getWeight() + ") ");
-        } 
-        // If the current vertex is the end vertex, print the start vertex and weight
-        else {
-            System.out.print(edge.getStart() + "(" + edge.getWeight() + ") ");
+            Graph.Vertex vertex = (Graph.Vertex)vertices.removeFirst();
+            vertex.setTemp(temp);
+            vertex.setHumidity(humidity);
+            vertex.setWind(wind);
+            vertices.insertLast(vertex);
         }
-    }
 
-    System.out.println();
-}
+        uavReader.close();
 
-        // Print the graph for task 2
-        // REPORT: having an issue where the end vertex is equal to the start
-
-            for (Graph.Vertex vertex : graph.getVertices()) {
-                List<Graph.Edge> edges = graph.getEdges(vertex);
-
-                System.out.print(vertex.getLabel() + " (Temp: " + vertex.getTemp() +
-                    ", Humidity: " + vertex.getHumidity() +
-                    ", Wind: " + vertex.getWind() + ") -> ");
-
-                for (Graph.Edge edge : edges) {
-                    System.out.print(edge.getEnd().getLabel() + "(" + edge.getWeight() + ") ");
-                }
-
-            System.out.println();
-        }     
+        // Create an instance of Menu class and pass the graph to it
+        Menu menu = new Menu(graph);
+        menu.showMenu();
     }
 }

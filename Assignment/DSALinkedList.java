@@ -208,5 +208,18 @@ public class DSALinkedList implements Iterable
         }
         public void remove() {throw new UnsupportedOperationException("Not supported"); }
     }
+    //for traversal
+    public boolean contains(Object inValue) {
+        boolean found = false;
+        DSAListNode currNode = head;
+        while (currNode != null && !found) {
+            if (currNode.getValue().equals(inValue)) {
+                found = true;
+            } else {
+                currNode = currNode.getNext();
+            }
+        }
+        return found;
+    }
 }
     
