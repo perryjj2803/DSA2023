@@ -43,47 +43,6 @@ private Vertex getNeighbor(Edge edge, Vertex vertex) {
     }
 }
 
-//REPORT: Had to use exisitng queue class + add peek method 
-   public void BFS(Vertex start) {
-    boolean[] visited = new boolean[vertices.length];
-    DSAQueue queue = new DSAQueue();
-
-    visited[getIndex(start)] = true;
-    queue.enqueue(start);
-
-    while (!queue.isEmpty()) {
-        Vertex currentVertex = (Vertex) queue.dequeue();
-        System.out.print(currentVertex.getLabel() + " ");
-
-        List<Edge> edges = getEdges(currentVertex);
-        for (Edge edge : edges) {
-            Vertex neighbor = getNeighbor(edge, currentVertex);
-            int neighborIndex = getIndex(neighbor);
-            if (!visited[neighborIndex]) {
-                visited[neighborIndex] = true;
-                queue.enqueue(neighbor);
-            }
-        }
-    }
-}
-
-public void DFS(Vertex start) {
-    boolean[] visited = new boolean[vertices.length];
-    DFSUtil(start, visited);
-}
-
-private void DFSUtil(Vertex vertex, boolean[] visited) {
-    visited[getIndex(vertex)] = true;
-    System.out.print(vertex.getLabel() + " ");
-
-    List<Edge> edges = getEdges(vertex);
-    for (Edge edge : edges) {
-        Vertex neighbor = getNeighbor(edge, vertex);
-        if (!visited[getIndex(neighbor)]) {
-            DFSUtil(neighbor, visited);
-        }
-    }
-}
 // REPORT: was throwing a nullpointerexception for ages, added null checks to ensure start or end is not null before invoking their methods//
 //(edge != null, edge.getStart() != null, and edge.getEnd() != null) to ensure that all necessary objects are non-null before accessing their methods.//
    public boolean hasEdge(Vertex start, Vertex end) {

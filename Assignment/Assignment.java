@@ -24,6 +24,7 @@ public class Assignment {
         // Add vertices to the graph
         for (Graph.Vertex vertex : vertices) {
             graph.addVertex(vertex);
+            
         }
 
         // Create edges
