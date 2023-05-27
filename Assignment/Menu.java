@@ -13,7 +13,7 @@ public class Menu {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\n------ MENU ------");
+            System.out.println("\n<-<<----- MENU ----->>->");
             System.out.println("1. Insert a location");
             System.out.println("2. Delete a location");
             System.out.println("3. Search for a location");
