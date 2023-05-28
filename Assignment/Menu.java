@@ -18,7 +18,8 @@ public class Menu {
             System.out.println("2. Delete a location");
             System.out.println("3. Search for a location");
             System.out.println("4. Print the graph");
-            System.out.println("5. Exit");
+            System.out.println("5. Calculate shortest distance between vertices (BFS)");
+            System.out.println("6. Exit");
 
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
@@ -38,6 +39,9 @@ public class Menu {
                     printGraph();
                     break;
                 case 5:
+                    calculateShortestDistance();
+                    break;
+                case 6:
                     exit = true;
                     break;
                 default:
@@ -127,4 +131,45 @@ public class Menu {
             System.out.println();
         }
     }
+private void calculateShortestDistance() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Enter the label of the start location: ");
+    String startLabel = scanner.nextLine();
+    System.out.print("Enter the label of the end location: ");
+    String endLabel = scanner.nextLine();
+
+    Graph.Vertex startVertex = findVertexByLabel(startLabel);
+    Graph.Vertex endVertex = findVertexByLabel(endLabel);
+
+    if (startVertex != null && endVertex != null) {
+        DSALinkedList shortestPath = graph.shortestPath(startVertex, endVertex);
+        if (!shortestPath.isEmpty()) {
+            System.out.print("Shortest path: ");
+            Iterator iter = shortestPath.iterator();
+            while (iter.hasNext()) {
+                Graph.Vertex vertex = (Graph.Vertex) iter.next();
+                System.out.print(vertex.getLabel());
+                if (iter.hasNext()) {
+                    System.out.print(" -> ");
+                }
+            }
+            System.out.println();
+        } else {
+            System.out.println("No path found between the vertices.");
+        }
+    } else {
+        System.out.println("Invalid start or end location label.");
+    }
 }
+    private Graph.Vertex findVertexByLabel(String label) {
+        DSALinkedList vertices = graph.getVertices();
+        for (Object obj : vertices) {
+            Graph.Vertex vertex = (Graph.Vertex) obj;
+            if (vertex.getLabel().equals(label)) {
+                return vertex;
+            }
+        }
+        return null;
+    }
+}
+    

@@ -94,6 +94,7 @@ public boolean hasEdge(Vertex start, Vertex end) {
         private double temp;
         private double humidity;
         private double wind;
+        private Vertex parent; // new field
 
         public Vertex(String label) {
             this.label = label;
@@ -111,6 +112,9 @@ public boolean hasEdge(Vertex start, Vertex end) {
         public void setWind(double wind) {
             this.wind = wind;
         }
+        public void setParent(Vertex parent) {
+        this.parent = parent;
+    }
 
         //Getter methods
         public String getLabel() {
@@ -128,6 +132,9 @@ public boolean hasEdge(Vertex start, Vertex end) {
         public double getWind() {
             return wind;
         }
+        public Vertex getParent() {
+        return parent;
+    }
 
         public String toString() {
             return label;
@@ -173,27 +180,41 @@ public boolean hasEdge(Vertex start, Vertex end) {
             return false;
         }
     }
- public DSALinkedList bfs(Vertex startVertex) {
-        DSAQueue queue = new DSAQueue();
-        DSALinkedList visitedVertices = new DSALinkedList();
+ public void bfs(Vertex startVertex) {
+    DSAQueue queue = new DSAQueue();
+    DSALinkedList visitedVertices = new DSALinkedList();
 
-        queue.enqueue(startVertex);
-        visitedVertices.insertLast(startVertex);
+    startVertex.setParent(null); // Start vertex has no parent
+    queue.enqueue(startVertex);
+    visitedVertices.insertLast(startVertex);
 
-        while (!queue.isEmpty()) {
-            Vertex current = (Vertex) queue.dequeue();
-            DSALinkedList neighbours = getEdges(current);
-            for (Object obj : neighbours) {
-                Edge edge = (Edge) obj;
-                Vertex neighbour = getNeighbor(edge, current);
-                if (!visitedVertices.contains(neighbour)) {
-                    queue.enqueue(neighbour);
-                    visitedVertices.insertLast(neighbour);
-                }
+    while (!queue.isEmpty()) {
+        Vertex current = (Vertex) queue.dequeue();
+        DSALinkedList neighbours = getEdges(current);
+        for (Object obj : neighbours) {
+            Edge edge = (Edge) obj;
+            Vertex neighbour = getNeighbor(edge, current);
+            if (!visitedVertices.contains(neighbour)) {
+                neighbour.setParent(current); // Set current as parent for neighbour
+                queue.enqueue(neighbour);
+                visitedVertices.insertLast(neighbour);
             }
         }
-        return visitedVertices;
     }
+}
+public DSALinkedList shortestPath(Vertex startVertex, Vertex endVertex) {
+    bfs(startVertex); // Perform BFS from start vertex
+
+    // Now backtrack from end vertex to start vertex using the parent property
+    DSALinkedList path = new DSALinkedList();
+    Vertex current = endVertex;
+    while (current != null) {
+        path.insertFirst(current); // Insert at start because we're going in reverse
+        current = current.getParent();
+    }
+
+    return path;
+}
 
     // DFS method
     public DSALinkedList dfs(Vertex startVertex) {
