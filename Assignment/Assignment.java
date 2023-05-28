@@ -10,7 +10,7 @@ public class Assignment {
         int numVertices = Integer.parseInt(line1[0]);
         int numEdges = Integer.parseInt(line1[1]);
 
-        Graph graph = new Graph(numVertices, numEdges);
+        Graph graph = new Graph();
 
         // Create vertices
         DSALinkedList vertices = new DSALinkedList();

@@ -154,6 +154,43 @@ public class DSALinkedList implements Iterable
 
         return nodeValue;
     }
+    //added specificially to convert Vertices and Edges from Array to DSALinkedList
+    public void remove(Object obj) {
+    // If list is empty, nothing to remove
+    if(isEmpty()) {
+        throw new IllegalArgumentException("List is empty");
+    }
+    
+    // Special case for head
+    if(head.getValue().equals(obj)) {
+        removeFirst();
+        return;
+    }
+
+    // Iterate through the rest of the list
+    DSAListNode prevNode = head;
+    DSAListNode currentNode = head.getNext();
+    while(currentNode != null) {
+        if(currentNode.getValue().equals(obj)) {
+            // Remove current node by having previous node skip it
+            prevNode.setNext(currentNode.getNext());
+            
+            // Check if we're at the tail
+            if(currentNode == tail) {
+                tail = prevNode;
+            }
+            
+            return;
+        }
+
+        // Move to next node
+        prevNode = currentNode;
+        currentNode = currentNode.getNext();
+    }
+
+    // If we reach here, the object was not found
+    throw new NoSuchElementException("Object not found in list");
+}
     public void print()
     {
         DSAListNode n = head;
