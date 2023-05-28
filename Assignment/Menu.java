@@ -35,6 +35,8 @@ public class Menu {
                 case 3:
                     searchLocation();
                     break;
+
+
                 case 4:
                     printGraph();
                     break;
@@ -48,8 +50,8 @@ public class Menu {
                     System.out.println("Invalid choice. Please try again.");
                     break;
             }
-        }
-    }
+        }  
+    } 
 
     private void insertLocation() {
         Scanner scanner = new Scanner(System.in);
@@ -82,8 +84,8 @@ public class Menu {
         System.out.println("Location deleted successfully.");
     }
 
-    private void searchLocation() {
-     Scanner scanner = new Scanner(System.in);
+private void searchLocation() {
+    Scanner scanner = new Scanner(System.in);
     System.out.print("Enter the label of the location to search: ");
     String label = scanner.nextLine();
 
@@ -106,7 +108,7 @@ public class Menu {
     } else {
         System.out.println("Location not found.");
     }
-    }
+}
 
     private void printGraph() {
         DSALinkedList graphVertices = graph.getVertices();
@@ -131,37 +133,37 @@ public class Menu {
             System.out.println();
         }
     }
-private void calculateShortestDistance() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Enter the label of the start location: ");
-    String startLabel = scanner.nextLine();
-    System.out.print("Enter the label of the end location: ");
-    String endLabel = scanner.nextLine();
+    private void calculateShortestDistance() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the label of the start location: ");
+        String startLabel = scanner.nextLine();
+        System.out.print("Enter the label of the end location: ");
+        String endLabel = scanner.nextLine();
 
-    Graph.Vertex startVertex = findVertexByLabel(startLabel);
-    Graph.Vertex endVertex = findVertexByLabel(endLabel);
+        Graph.Vertex startVertex = findVertexByLabel(startLabel);
+        Graph.Vertex endVertex = findVertexByLabel(endLabel);
 
-    if (startVertex != null && endVertex != null) {
-        DSALinkedList shortestPath = graph.shortestPath(startVertex, endVertex);
-        if (!shortestPath.isEmpty()) {
-            System.out.println("Shortest path:");
-            Iterator iter = shortestPath.iterator();
-            while (iter.hasNext()) {
-                Graph.Vertex vertex = (Graph.Vertex) iter.next();
-                System.out.println("Label: " + vertex.getLabel());
-                System.out.println("Temperature: " + vertex.getTemp());
-                System.out.println("Humidity: " + vertex.getHumidity());
-                System.out.println("Wind speed: " + vertex.getWind());
-                System.out.println();
+        if (startVertex != null && endVertex != null) {
+            DSALinkedList shortestPath = graph.shortestPath(startVertex, endVertex);
+            if (!shortestPath.isEmpty()) {
+                System.out.println("Shortest path:");
+                Iterator iter = shortestPath.iterator();
+                while (iter.hasNext()) {
+                    Graph.Vertex vertex = (Graph.Vertex) iter.next();
+                    System.out.println("Label: " + vertex.getLabel());
+                    System.out.println("Temperature: " + vertex.getTemp());
+                    System.out.println("Humidity: " + vertex.getHumidity());
+                    System.out.println("Wind speed: " + vertex.getWind());
+                    System.out.println();
+                }
+                System.out.println("Total distance: "); // Total distance is the number of edges
+            } else {
+                System.out.println("No path found between the vertices.");
             }
-            System.out.println("Total distance: "); // Total distance is the number of edges
         } else {
-            System.out.println("No path found between the vertices.");
+            System.out.println("Invalid start or end location label.");
         }
-    } else {
-        System.out.println("Invalid start or end location label.");
     }
-}
     private Graph.Vertex findVertexByLabel(String label) {
         DSALinkedList vertices = graph.getVertices();
         for (Object obj : vertices) {

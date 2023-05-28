@@ -1,3 +1,9 @@
+/***************************************************************************************
+*    Title: DSALinkedList practical submission
+*    Author: Jean-Jacques Perry
+*    Date: 14/05/2023
+*    Description: Most of this code is from my LinkedList practical submission, however it has been modifeid
+***************************************************************************************/
 import java.util.*;
 public class DSALinkedList implements Iterable
 {
@@ -132,7 +138,6 @@ public class DSALinkedList implements Iterable
         return nodeValue;
             
     }    
-
     public Object removeLast()
     {
         if(isEmpty())
@@ -154,6 +159,17 @@ public class DSALinkedList implements Iterable
 
         return nodeValue;
     }
+    public void print()
+    {
+        DSAListNode n = head;
+        while(n.getNext() != null)
+        {
+            System.out.println(n.getValue());
+            n = n.getNext();
+        }
+    
+    }
+
     //added specificially to convert Vertices and Edges from Array to DSALinkedList
     public void remove(Object obj) {
     // If list is empty, nothing to remove
@@ -191,16 +207,7 @@ public class DSALinkedList implements Iterable
     // If we reach here, the object was not found
     throw new NoSuchElementException("Object not found in list");
 }
-    public void print()
-    {
-        DSAListNode n = head;
-        while(n.getNext() != null)
-        {
-            System.out.println(n.getValue());
-            n = n.getNext();
-        }
     
-    }
     public void iterateOverList(DSALinkedList theList)
     {
         Object c;

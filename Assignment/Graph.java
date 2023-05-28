@@ -1,3 +1,9 @@
+/***************************************************************************************
+*    Title: Graph practical submission
+*    Author: Jean-Jacques Perry
+*    Date: 1N/05/2023
+*    Description: I wrote SOME of this code for my graph prac (only setters/getters) but never got it marked 
+***************************************************************************************/
 import java.util.*;
 
 public class Graph {
@@ -215,7 +221,6 @@ public DSALinkedList shortestPath(Vertex startVertex, Vertex endVertex) {
 
     return path;
 }
-
     // DFS method unsure what to use it for?
     public DSALinkedList dfs(Vertex startVertex) {
         DSALinkedList stack = new DSALinkedList();
