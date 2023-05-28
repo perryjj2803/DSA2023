@@ -144,16 +144,17 @@ private void calculateShortestDistance() {
     if (startVertex != null && endVertex != null) {
         DSALinkedList shortestPath = graph.shortestPath(startVertex, endVertex);
         if (!shortestPath.isEmpty()) {
-            System.out.print("Shortest path: ");
+            System.out.println("Shortest path:");
             Iterator iter = shortestPath.iterator();
             while (iter.hasNext()) {
                 Graph.Vertex vertex = (Graph.Vertex) iter.next();
-                System.out.print(vertex.getLabel());
-                if (iter.hasNext()) {
-                    System.out.print(" -> ");
-                }
+                System.out.println("Label: " + vertex.getLabel());
+                System.out.println("Temperature: " + vertex.getTemp());
+                System.out.println("Humidity: " + vertex.getHumidity());
+                System.out.println("Wind speed: " + vertex.getWind());
+                System.out.println();
             }
-            System.out.println();
+            System.out.println("Total distance: "); // Total distance is the number of edges
         } else {
             System.out.println("No path found between the vertices.");
         }

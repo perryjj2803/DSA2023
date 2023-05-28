@@ -216,7 +216,7 @@ public DSALinkedList shortestPath(Vertex startVertex, Vertex endVertex) {
     return path;
 }
 
-    // DFS method
+    // DFS method unsure what to use it for?
     public DSALinkedList dfs(Vertex startVertex) {
         DSALinkedList stack = new DSALinkedList();
         DSALinkedList visitedVertices = new DSALinkedList();
